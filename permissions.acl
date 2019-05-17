@@ -1,0 +1,188 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Sample access control list.
+ */
+rule R1_OrgSeeUpdateThemselvesOnly {
+  description: "Organization can see and update their own profile only"
+  participant(t): "org.milk.supplynetwork.Organization"
+  operation: READ, UPDATE, CREATE 
+  resource(v): "org.milk.supplynetwork.Organization"
+  condition: (v.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule R1a_OrgSeeAnotherOrganize {
+  description: "Organization can see and update their own profile only"
+  participant: "org.milk.supplynetwork.Organization"
+  operation: READ
+  resource: "org.milk.supplynetwork.Organization"
+  action: ALLOW
+}
+
+rule R2_MilkCompSeeWorkTheirParcelOnly {
+  description: "MilkCompany can see/work with their own parcels only"
+  participant(t): "org.milk.supplynetwork.MilkCompany"
+  operation: ALL
+  resource(c): "org.milk.supplynetwork.Parcel"
+  condition: (c.owner.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule R3_MilkCompSeeWorkTheirUnitOnly {
+  description: "MilkCompany can see/work with their own units only"
+  participant(t): "org.milk.supplynetwork.MilkCompany"
+  operation: ALL
+  resource(c): "org.milk.supplynetwork.Unit"
+  condition: (c.owner.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule R4_TraderSeeWorkTheirParcelOnly {
+  description: "Trader can see/work with their own parcels only"
+  participant(t): "org.milk.supplynetwork.Trader"
+  operation: ALL
+  resource(c): "org.milk.supplynetwork.Parcel"
+  condition: (c.owner.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule R5_TraderSeeWorkTheirUnitOnly {
+  description: "Trader can see/work with their own units only"
+  participant(t): "org.milk.supplynetwork.Trader"
+  operation: ALL
+  resource(c): "org.milk.supplynetwork.Unit"
+  condition: (c.owner.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule R6_TransportCompanySeeUpdateTheirParcelOnly {
+  description: "Transport comp. can see/update their own parcels only"
+  participant(t): "org.milk.supplynetwork.TransportCompany"
+  operation: READ, UPDATE
+  resource(c): "org.milk.supplynetwork.Parcel"
+  condition: (c.owner.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule R7_TransportCompanySeeUpdateTheirUnitOnly {
+  description: "Transport company can see/update their own parcels only"
+  participant(t): "org.milk.supplynetwork.TransportCompany"
+  operation: READ, UPDATE
+  resource(c): "org.milk.supplynetwork.Unit"
+  condition: (c.owner.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule R8a_MilkCompanyCanEnableTradeTrans {
+  description: "Enable all Orgs to submit Trade transactions"
+  participant: "org.milk.supplynetwork.MilkCompany" 
+  operation: ALL
+  resource: "org.milk.supplynetwork.Delivering_parcel"
+  action: ALLOW
+}
+
+rule R8b_TransportCompanyCanEnableTradeTrans {
+  description: "Enable all Orgs to submit Trade transactions"
+  participant: "org.milk.supplynetwork.TransportCompany" 
+  operation: ALL
+  resource: "org.milk.supplynetwork.Delivering_parcel"
+  action: ALLOW
+}
+
+rule R9_OnlyMilkCompanyCanEnableAddUnitToParcelTrans {
+  description: "Enable only MilkCompany to submit AddUnitToParcel transactions"
+  participant: "org.milk.supplynetwork.MilkCompany"
+  operation: ALL
+  resource: "org.milk.supplynetwork.AddUnitToParcel"
+  action: ALLOW
+}
+
+rule R10_OnlyTraderCanEnablePutParcelIntoStockOfStoreTransaction {
+  description: "Enable only Trader to submit PutParcelIntoStockOfStore transactions"
+  participant: "org.milk.supplynetwork.Trader"
+  operation: ALL
+  resource: "org.milk.supplynetwork.PutParcelIntoStockOfStore"
+  action: ALLOW
+}
+
+rule R11_OnlyTraderCanEnableForSaleTransaction {
+  description: "Enable only Trader to submit ForSale transactions"
+  participant: "org.milk.supplynetwork.Trader"
+  operation: ALL
+  resource: "org.milk.supplynetwork.ForSaleOnStore"
+  action: ALLOW
+}
+
+rule R12_OnlyTraderCanEnableSoldTransaction {
+  description: "Enable only Trader to submit Sold transactions"
+  participant: "org.milk.supplynetwork.Trader"
+  operation: ALL
+  resource: "org.milk.supplynetwork.Sold"
+  action: ALLOW
+}
+
+// Historical/Audit records
+rule R13_OrgSeeOwnHistoryOnly {
+  description: "Organizations should be able to see the history of their own transactions only"
+  participant(t): "org.milk.supplynetwork.Organization"
+  operation: READ
+  resource(v): "org.hyperledger.composer.system.HistorianRecord"
+  condition: (v.participantInvoking.getIdentifier() != t.getIdentifier())
+  action: DENY
+}
+
+rule R14_GuestCanSeeTradeHistoryOnly {
+  description: "Guest should be able to see the history of trade transactions only"
+  participant(g): "org.milk.supplynetwork.Guest"
+  operation: READ
+  resource(v): "org.hyperledger.composer.system.HistorianRecord"
+  condition: (v.transactionType == "org.milk.supplynetwork.Delivering_parcel")
+  action: ALLOW
+}
+
+// rule R15_GuessCanQueryInfoOfUnit {
+//   description: "Enable only Trader to submit Sold transactions"
+//   participant(g): "org.milk.supplynetwork.Guest"
+//   operation: READ
+//   resource(v): "org.milk.supplynetwork.Unit"
+//   condition: (v.getIdentifier() == g)
+//   action: ALLOW
+// }
+
+// System and network admin rules
+rule SystemACL {
+  description:  "System ACL to permit all access"
+  participant: "ANY"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+  description: "Grant business network administrators full access to user resources"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "**"
+  action: ALLOW
+}
+
+rule NetworkAdminSystem {
+  description: "Grant business network administrators full access to system resources"
+  participant: "org.hyperledger.composer.system.NetworkAdmin"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}

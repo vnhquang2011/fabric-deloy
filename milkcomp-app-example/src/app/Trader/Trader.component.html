@@ -1,0 +1,151 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+  <div class="modal fade" id="updateParticipantModal" tabindex="-1" role="dialog" aria-labelledby="updateParticipantModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="updateParticipantModalLabel">Thông tin</h4>
+        </div>
+        <form [formGroup]="myForm">
+          <div class="modal-body">
+  
+  
+            
+              <div class="form-group text-left">
+                <label for="description">Mô tả</label>
+  
+                
+                  <input style="height:100px" [ngModel]="description"formControlName="description" type="text" class="form-control">
+                
+  
+              </div>
+            
+              <div class="form-group text-left">
+                <label for="orgId">Mã đối tác</label>
+  
+                
+                  <input [ngModel]="orgId" formControlName="orgId" class="form-control" disabled="disabled">  
+                
+  
+              </div>
+            
+              <div class="form-group text-left">
+                <label for="name">Tên</label>
+  
+                
+                  <input [ngModel]="name"formControlName="name" type="text" class="form-control">
+                
+  
+              </div>
+            
+              <div class="form-group text-left">
+                <label for="country">Quốc gia</label>
+  
+                
+                  <input [ngModel]="country"formControlName="country" type="text" class="form-control">
+                
+  
+              </div>
+            
+              <div class="form-group text-left">
+                <label for="phone">Phone</label>
+  
+                
+                  <input [ngModel]="phone"formControlName="phone" type="text" class="form-control">
+                
+  
+              </div>
+            
+              <div class="form-group text-left">
+                <label for="email">Email</label>
+  
+                
+                  <input [ngModel]="email"formControlName="email" type="text" class="form-control">
+                
+  
+              </div>
+            
+  
+  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  
+
+  <div class="container">
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <strong>Error:</strong> {{errorMessage}}
+      </div>
+    
+    <div class="row">
+      <div class="col-md-9">
+          <h1 class="participant-title" id='participantName'>Cửa hàng</h1>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-responsive">
+          <thead class="thead">
+            <tr class="thead-cols">
+              
+                  <th class="info">Mô tả</th>
+              
+                  <th class="info">Mã đối tác</th>
+              
+                  <th class="info">Tên</th>
+              
+                  <th class="info">Quốc gia</th>
+              
+                  <th class="info">Phone</th>
+              
+                  <th class="info">Email</th>
+              
+                <th class="info-actions">Xem chi tiết</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let participant of allParticipants">
+  
+              
+                  <td class="participant-properties">{{participant.description}}</td>
+              
+                  <td class="participant-properties">{{participant.orgId}}</td>
+              
+                  <td class="participant-properties">{{participant.name}}</td>
+              
+                  <td class="participant-properties">{{participant.country}}</td>
+              
+                  <td class="participant-properties">{{participant.phone}}</td>
+              
+                  <td class="participant-properties">{{participant.email}}</td>
+              
+              <td style="margin-right:0px !important; text-align: center;">
+                <button (click)="getForm(participant.orgId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#updateParticipantModal">
+                    Xem
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
