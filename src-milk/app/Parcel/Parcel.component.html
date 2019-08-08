@@ -1,0 +1,356 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<div class="modal fade" id="addAssetModal" tabindex="-1" role="dialog" aria-labelledby="addAssetModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addAssetModalLabel">Tạo mới lô hàng</h4>
+          <p class="modal-intro">Điền thông tin lô hàng</p>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+
+            
+              <div class="form-group text-left">
+                <label for="parcelId">Mã lô hàng</label>
+                
+                  <input required formControlName="parcelId" type="text" class="form-control">
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="description">Mô tả</label>
+                
+                  <textarea required style="height: 100px;" formControlName="description" type="text" class="form-control"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="maxQuantity">Số lượng tối đa</label>
+                
+                  <input required formControlName="maxQuantity" type="number" class="form-control">
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="currQuantity">Số lượng hiện tại</label>
+                
+                  <input required formControlName="currQuantity" type="number" class="form-control">
+                
+              </div>
+            
+          
+
+            
+              <label for="pStatus">Trạng thái</label>
+              <div class="checkbox">
+                
+                  <label>
+                    <input
+                      
+                      formControlName="pStatus"
+                      
+                      name="pStatus"
+                      value="PREPARING"
+                      type="radio"
+                      
+                    />
+                    Đang chuẩn bị
+                  </label>
+                
+                  <label>
+                    <input
+                      
+                        formControlName="pStatus"
+                      
+                      name="pStatus"
+                      value="DELIVERING"
+                      type="radio"
+                      
+                    />
+                    Đang vận chuyển
+                  </label>
+                
+                  <label>
+                    <input
+                      
+                        formControlName="pStatus"
+                      
+                      name="pStatus"
+                      value="INSTOCK"
+                      type="radio"
+                      
+                    />
+                    Đã giao đến nơi bán
+                  </label>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="units">Sản phẩm</label>
+                
+                    <input placeholder="Bỏ qua" formControlName="units" class="form-control" >
+                      
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="owner">Sở hữu</label>
+                
+                    <input required placeholder="Nhập mã công ty (ID)" formControlName="owner" class="form-control">
+                
+              </div>
+            
+          
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          <button style="width:fit-content;" (click)="addAsset(myForm);" type="submit" class="btn btn-success" data-dismiss="modal">Xác nhận</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="updateAssetModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="updateAssetModalLabel">Thông tin chi tiết</h4>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+
+
+          
+            <div class="form-group text-left">
+              <label for="parcelId">Mã lô hàng</label>
+              
+              
+                <input [ngModel]="parcelId" formControlName="parcelId" class="form-control" disabled="disabled">  
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="description">Mô tả</label>
+              
+              
+                <textarea style="height: 100px;" [ngModel]="description"formControlName="description" type="text" class="form-control"></textarea>
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="maxQuantity">Số lượng tối đa</label>
+              
+              
+                <input [ngModel]="maxQuantity" formControlName="maxQuantity" type="number" class="form-control">
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="currQuantity">Số lượng hiện tại</label>
+              
+              
+                <input disabled [ngModel]="currQuantity" formControlName="currQuantity" type="number" class="form-control">
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="pStatus">Trạng thái</label>
+              
+              
+                
+                  <div class="row">
+                    <div class="col-xs-12 checkbox">
+                    
+                      <label>
+                        <input
+                          
+                            formControlName="pStatus"
+                            [ngModel]="pStatus"
+                          
+                          name="pStatus"
+                          value="PREPARING"
+                          type="radio"
+                          disabled
+                          
+                        />
+                        Đang chuẩn bị
+                      </label>
+                    
+                      <label>
+                        <input
+                          
+                            formControlName="pStatus"
+                            [ngModel]="pStatus"
+                          
+                          name="pStatus"
+                          value="DELIVERING"
+                          type="radio"
+                          disabled
+                          
+                        />
+                        Đang vận chuyển
+                      </label>
+                    
+                      <label>
+                        <input
+                          
+                            formControlName="pStatus"
+                            [ngModel]="pStatus"
+                          
+                          name="pStatus"
+                          value="INSTOCK"
+                          type="radio"
+                          disabled
+                          
+                        />
+                        Đã giao đến nơi bán
+                      </label>
+                    
+                    </div>
+                  </div>
+                
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="units">Danh sách sản phẩm</label>
+              
+              
+                
+                  <textarea disabled style="height: 100px;" [ngModel]="units" formControlName="units" class="form-control" rows="3"></textarea>
+
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="owner">Sở hữu</label>
+              
+              
+                
+                  <input disabled [ngModel]="owner" formControlName="owner" class="form-control" rows="3">
+                
+              
+
+            </div>
+          
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Error:</strong> {{errorMessage}}
+	</div>
+  
+  <div class="row">
+    <div class="col-md-9">
+        <h1 class="asset-title" id='assetName'>Lô hàng</h1>
+    </div>
+    <div class="col-md-3">
+      <button (click)="resetForm()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAssetModal">
+          <span style="font-size: 14px;font-family: inherit;border-right:1px solid rgba(255,255,255,0.5);padding-right:0.6em;margin-right:0.5em;vertical-align:middle;">
+              <svg class="plus-svg" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+                <path fill-rule="evenodd" d="M5.5,4.5 L9.5,4.5 L10,4.5 L10,5.5 L9.5,5.5 L5.5,5.5 L5.5,9.5 L5.5,10 L4.5,10 L4.5,9.5 L4.5,5.5 L0.5,5.5 L0,5.5 L0,4.5 L0.5,4.5 L4.5,4.5 L4.5,0.5 L4.5,0 L5.5,0 L5.5,0.5 L5.5,4.5 Z"/>
+              </svg>
+          </span>
+        Tạo lô hàng
+      </button>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-responsive">
+        <thead class="thead">
+          <tr class="thead-cols">
+            
+                <th class="info">Mã lô hàng</th>
+            
+                <th class="info">Mô tả</th>
+            
+                <th class="info">Số lượng tối đa</th>
+            
+                <th class="info">Số lượng hiện tại</th>
+            
+                <th class="info">Tình trạng</th>
+                        
+                <th class="info">Sở hữu</th>
+            
+              <th style="text-align:center;" class="info-actions">Xem chi tiết</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let asset of allAssets">
+
+            
+                <td class="asset-properties">{{asset.parcelId}}</td>
+            
+                <td class="asset-properties">{{asset.description}}</td>
+            
+                <td class="asset-properties">{{asset.maxQuantity}}</td>
+            
+                <td class="asset-properties">{{asset.currQuantity}}</td>
+            
+                <td class="asset-properties">{{asset.pStatus}}</td>
+            
+                <td style="overflow-x: auto; text-overflow: unset;" class="asset-properties">{{(asset.owner).split('network.')[1]}}</td>
+            
+            <td style="margin-right:0px ; text-align: center;">
+              <button (click)="getForm(asset.parcelId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#updateAssetModal">
+                  Xem 
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

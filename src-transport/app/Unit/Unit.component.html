@@ -1,0 +1,235 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required="true" by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<div class="modal fade" id="updateAssetModal" tabindex="-1" role="dialog" aria-labelledby="updateAssetModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="updateAssetModalLabel">Thông tin sản phẩm</h4>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+
+
+          
+            <div class="form-group text-left">
+              <label for="unitName">Tên sản phẩm</label>
+              
+              
+                <input [ngModel]="unitName"formControlName="unitName" type="text" class="form-control">
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="unitId">Mã sản phẩm</label>
+              
+              
+                <input [ngModel]="unitId" formControlName="unitId" class="form-control" disabled="disabled">  
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="parcelId">Mã lô hàng</label>
+              
+              
+                <input disabled [ngModel]="parcelId" formControlName="parcelId" type="text" class="form-control">
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="description">Mô tả</label>
+              
+              
+                <textarea style="height: 100px;" [ngModel]="description" formControlName="description" type="text" class="form-control" cols="4" rows="9"></textarea>
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="uStatus">Tình trạng</label>
+              
+              
+                
+                  <div class="row">
+                    <div class="col-xs-12 checkbox">
+                    
+                      <label>
+                        <input
+                          
+                            formControlName="uStatus"
+                            [ngModel]="uStatus"
+                          
+                          name="uStatus"
+                          value="PREPARING"
+                          type="radio"
+                          disabled
+                          
+                        />
+                        Đang chuẩn bị
+                      </label>
+
+                      <label>
+                        <input
+                          
+                            formControlName="uStatus"
+                            [ngModel]="uStatus"
+                          
+                          name="uStatus"
+                          value="DELIVERING"
+                          type="radio"
+                          disabled
+                          
+                        />
+                        Đang vận chuyển
+                      </label>
+                    
+                      <label>
+                        <input
+                          
+                            formControlName="uStatus"
+                            [ngModel]="uStatus"
+                          
+                          name="uStatus"
+                          value="INSTOCK"
+                          type="radio"
+                          disabled
+                          
+                        />
+                        Đã giao đến nơi bán
+                      </label>
+                    
+                      <label>
+                        <input
+                          
+                            formControlName="uStatus"
+                            [ngModel]="uStatus"
+                          
+                          name="uStatus"
+                          value="SELLING"
+                          type="radio"
+                          disabled
+                          
+                        />
+                        Đang được bày bán
+                      </label>
+                    
+                      <label>
+                        <input
+                          
+                            formControlName="uStatus"
+                            [ngModel]="uStatus"
+                          
+                          name="uStatus"
+                          value="SOLD"
+                          type="radio"
+                          disabled
+                          
+                        />
+                        Đã bán
+                      </label>
+                    
+                    </div>
+                  </div>
+                
+              
+
+            </div>
+          
+            <div class="form-group text-left">
+              <label for="owner">Sở hữu</label>
+              
+              
+                
+                  <input disabled [ngModel]="owner" formControlName="owner" class="form-control" >
+                
+              
+
+            </div>
+            
+          
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+	<div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+		<strong>Lỗi:</strong> {{errorMessage}}
+	</div>
+  
+  <div class="row">
+    <div class="col-md-9">
+        <h1 class="asset-title" id='assetName'>Danh sách sản phẩm</h1>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-responsive">
+        <thead class="thead">
+          <tr class="thead-cols">
+            
+                <th class="info">Tên sản phẩm</th>
+            
+                <th class="info">Mã sản phẩm</th>
+            
+                <th class="info">Mã lô hàng</th>
+
+                <th class="info">Tình trạng</th>
+
+                <th class="info">Sở hữu</th>
+
+                <th style="max-width:100px;" class="info">Mô tả</th>
+            
+              <th style="text-align: center;" class="info-actions">Xem chi tiết</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let asset of allAssets">
+
+            
+                <td class="asset-properties">{{asset.unitName}}</td>
+            
+                <td class="asset-properties">{{asset.unitId}}</td>
+            
+                <td class="asset-properties">{{asset.parcelId}}</td>
+
+                <td class="asset-properties">{{asset.uStatus}}</td>
+
+                <td style="overflow-x: auto; text-overflow: unset;" class="asset-properties">{{(asset.owner).split('network.')[1]}}</td>
+            
+                <td style="max-width:100px" class="asset-properties">{{asset.description}}</td>
+
+            <td style="margin-right:0px !important; text-align: center;">
+              <button (click)="getForm(asset.unitId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#updateAssetModal">
+                  <span>Xem</span>
+              </button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

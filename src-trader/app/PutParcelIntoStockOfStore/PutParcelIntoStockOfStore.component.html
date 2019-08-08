@@ -1,0 +1,121 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<div class="modal fade" id="addTransactionModal" tabindex="-1" role="dialog" aria-labelledby="addTransactionModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addTransactionModalLabel">Nhập kho lô hàng</h4>
+          <p class="modal-intro">Điền chính xác các thông tin</p>
+      </div>
+      <form [formGroup]="myForm">
+        <div class="modal-body">
+
+              <div class="form-group text-left">
+                <label for="parcel">Lô hàng</label>
+                
+                    <textarea placeholder="Nhập mã lô hàng (Số ID)" formControlName="parcel" class="form-control" rows="3"></textarea>
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="transactionId">Mã thao tác</label>
+                
+                  <input placeholder="Bỏ qua" disabled formControlName="transactionId" type="text" class="form-control">
+                
+              </div>
+            
+          
+
+            
+              <div class="form-group text-left">
+                <label for="timestamp">Thời gian</label>
+                
+                  <input placeholder="Bỏ qua" disabled formControlName="timestamp" type="text" class="form-control">
+                
+              </div>
+            
+          
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          <button (click)="addTransaction(myForm);" style="width:fit-content;" type="submit" class="btn btn-success" data-dismiss="modal">Xác nhận</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+      <strong>Lỗi:</strong> {{errorMessage}}
+  </div>
+
+<div class="row">
+  <div class="col-md-6">
+      <h1 class="transaction-title" id='transactionName'>Lịch sử nhập kho</h1>
+  </div>
+  <div class="col-md-">
+    <button (click)="resetForm()" style="width:fit-content" type="button" class="btn btn-primary invokeTransactionBtn" data-toggle="modal" data-target="#addTransactionModal">
+        <span style="font-size: 14px;font-family: inherit;border-right:1px solid rgba(255,255,255,0.5);padding-right:0.6em;margin-right:0.5em;vertical-align:middle;">
+            <svg class="plus-svg" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10">
+              <path fill-rule="evenodd" d="M5.5,4.5 L9.5,4.5 L10,4.5 L10,5.5 L9.5,5.5 L5.5,5.5 L5.5,9.5 L5.5,10 L4.5,10 L4.5,9.5 L4.5,5.5 L0.5,5.5 L0,5.5 L0,4.5 L0.5,4.5 L4.5,4.5 L4.5,0.5 L4.5,0 L5.5,0 L5.5,0.5 L5.5,4.5 Z"/>
+            </svg>
+        </span>
+      Nhập kho
+    </button>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-responsive">
+      <thead class="thead">
+        <tr class="thead-cols">
+          
+              <th class="info">Lô hàng</th>
+          
+              <th style="text-align: center;" class="info">Thời gian thao tác</th>
+
+              <th class="info">Mã thao tác</th>
+          
+            <th class="info-actions">Xem chi tiết</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trans of allTransactions">
+
+              <td class="asset-properties">{{(trans.parcel).split('network.')[1]}}</td>
+          
+              <td  style="text-align: center;" class="asset-properties">{{trans.timestamp | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+          
+              <td class="asset-properties">{{trans.transactionId}}</td>
+                    
+          <td style="text-align: center;">
+            <button (click)="getForm(trans.transactionId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#addTransactionModal">
+                Xem 
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+ 

@@ -25,62 +25,78 @@ rule R1_OrgSeeUpdateThemselvesOnly {
 }
 
 rule R1a_OrgSeeAnotherOrganize {
-  description: "Organization can see and update their own profile only"
+  description: "Organization can their own profile only"
   participant: "org.milk.supplynetwork.Organization"
   operation: READ
   resource: "org.milk.supplynetwork.Organization"
   action: ALLOW
 }
 
-rule R2_MilkCompSeeWorkTheirParcelOnly {
-  description: "MilkCompany can see/work with their own parcels only"
+rule R2a_MilkCompSeeWorkTheirParcelOnly {
+  description: "MilkCompany can work with their own parcels only"
   participant(t): "org.milk.supplynetwork.MilkCompany"
-  operation: ALL
+  operation: CREATE, UPDATE, DELETE
   resource(c): "org.milk.supplynetwork.Parcel"
   condition: (c.owner.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
-rule R3_MilkCompSeeWorkTheirUnitOnly {
-  description: "MilkCompany can see/work with their own units only"
+rule R2b_MilkCompSeeAllParce {
+  description: "MilkCompany can see all parcels"
+  participant: "org.milk.supplynetwork.MilkCompany"
+  operation: READ
+  resource: "org.milk.supplynetwork.Parcel"
+  action: ALLOW
+}
+
+rule R3a_MilkCompSeeWorkTheirUnitOnly {
+  description: "MilkCompany can work with their own units only"
   participant(t): "org.milk.supplynetwork.MilkCompany"
-  operation: ALL
+  operation: CREATE, UPDATE, DELETE
   resource(c): "org.milk.supplynetwork.Unit"
   condition: (c.owner.getIdentifier() == t.getIdentifier())
+  action: ALLOW
+}
+
+rule R3b_MilkCompSeeAllUnit {
+  description: "MilkCompany can see all units"
+  participant: "org.milk.supplynetwork.MilkCompany"
+  operation: READ
+  resource: "org.milk.supplynetwork.Unit"
   action: ALLOW
 }
 
 rule R4_TraderSeeWorkTheirParcelOnly {
   description: "Trader can see/work with their own parcels only"
   participant(t): "org.milk.supplynetwork.Trader"
-  operation: ALL
+  operation: READ,UPDATE
   resource(c): "org.milk.supplynetwork.Parcel"
   condition: (c.owner.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
 rule R5_TraderSeeWorkTheirUnitOnly {
-  description: "Trader can see/work with their own units only"
+  description: "Trader can see with their own units only"
   participant(t): "org.milk.supplynetwork.Trader"
-  operation: ALL
+  operation: READ,UPDATE
   resource(c): "org.milk.supplynetwork.Unit"
   condition: (c.owner.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
 rule R6_TransportCompanySeeUpdateTheirParcelOnly {
-  description: "Transport comp. can see/update their own parcels only"
+  description: "Transport comp. can see their own parcels only"
   participant(t): "org.milk.supplynetwork.TransportCompany"
-  operation: READ, UPDATE
+  operation: READ,UPDATE
   resource(c): "org.milk.supplynetwork.Parcel"
   condition: (c.owner.getIdentifier() == t.getIdentifier())
   action: ALLOW
 }
 
-rule R7_TransportCompanySeeUpdateTheirUnitOnly {
-  description: "Transport company can see/update their own parcels only"
+rule R7_TransportCompanySeeTheirUnitOnly {
+  description: "Transport company can see their own units only"
   participant(t): "org.milk.supplynetwork.TransportCompany"
-  operation: READ, UPDATE
+  operation: READ,UPDATE
   resource(c): "org.milk.supplynetwork.Unit"
   condition: (c.owner.getIdentifier() == t.getIdentifier())
   action: ALLOW
@@ -153,14 +169,14 @@ rule R14_GuestCanSeeTradeHistoryOnly {
   action: ALLOW
 }
 
-// rule R15_GuessCanQueryInfoOfUnit {
-//   description: "Enable only Trader to submit Sold transactions"
-//   participant(g): "org.milk.supplynetwork.Guest"
-//   operation: READ
-//   resource(v): "org.milk.supplynetwork.Unit"
-//   condition: (v.getIdentifier() == g)
-//   action: ALLOW
-// }
+rule R15_GuessCanQueryInfoOfUnit {
+  description: "Enable only Trader's asset"
+  participant(g): "org.milk.supplynetwork.Guest"
+  operation: READ
+  resource(v): "org.milk.supplynetwork.Unit"
+  condition: (v.owner.getType() == "Trader")
+  action: ALLOW
+}
 
 // System and network admin rules
 rule SystemACL {

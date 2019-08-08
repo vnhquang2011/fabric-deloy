@@ -24,7 +24,7 @@ composer network start --networkName milk-supply-network --networkVersion 0.0.1 
 composer card import --file admin@milk-supply-network.card
 
 composer-rest-server -c admin@milk-supply-network -n never -u true -d test -w true
-composer-rest-server -c MilkComp_1@milk-supply-network -n never -u true -d test -w true -p 3001
-composer-rest-server -c TransComp_1@milk-supply-network -n never -u true -d test -w true -p 3002
-composer-rest-server -c SuperMarket_1@milk-supply-network -n never -u true -d test1 -w true -p 3003
+composer-rest-server -c milkcomp1@milk-supply-network -n never -u true -d test -w true -p 3001
+composer-rest-server -c transcomp1@milk-supply-network -n never -u true -d test -w true -p 3002
+composer-rest-server -c supermarket1@milk-supply-network -n never -u true -d test -w true -p 3003
 

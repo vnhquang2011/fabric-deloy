@@ -1,0 +1,145 @@
+<!--
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<div class="modal fade" id="addParticipantModal" tabindex="-1" role="dialog" aria-labelledby="addParticipantModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="addParticipantModalLabel">Thông tin công ty</h4>
+        </div>
+        <form [formGroup]="myForm">
+          <div class="modal-body">
+  
+                <div class="form-group text-left">
+                  <label for="name">Tên</label>
+                  
+                    <input disabled formControlName="name" type="text" class="form-control">
+                  
+                </div>
+              
+              
+                <div class="form-group text-left">
+                    <label for="orgId">Mã công ty</label>
+                    
+                      <input disabled formControlName="orgId" type="text" class="form-control">
+                    
+                  </div>
+  
+              
+                <div class="form-group text-left">
+                  <label for="description">Mô tả</label>
+                  
+                  <textarea style="height: 100px;" formControlName="description" type="text" class="form-control"></textarea>
+                  
+                </div>
+              
+  
+              
+                <div class="form-group text-left">
+                  <label for="country">Quốc gia</label>
+                  
+                    <input disabled formControlName="country" type="text" class="form-control">
+                  
+                </div>
+              
+            
+  
+              
+                <div class="form-group text-left">
+                  <label for="phone">Phone</label>
+                  
+                    <input formControlName="phone" type="text" class="form-control">
+                  
+                </div>
+              
+            
+  
+              
+                <div class="form-group text-left">
+                  <label for="email">Email</label>
+                  
+                    <input formControlName="email" type="text" class="form-control">
+                  
+                </div>
+              
+            
+  
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            <button style="width:fit-content;" (click)="updateParticipant(myForm);" type="submit" class="btn btn-success" data-dismiss="modal">Chỉnh sửa</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+      <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <strong>lỗi:</strong> {{errorMessage}}
+      </div>
+    
+    <div class="row">
+      <div class="col-md-9">
+          <h1 class="participant-title" id='participantName'>Thông tin công ty</h1>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-responsive">
+          <thead class="thead">
+            <tr class="thead-cols">
+
+                  <th class="info">Tên</th>
+
+                  <th class="info">Mô tả</th>
+              
+                  <th style="text-align: center;" class="info">Mã công ty</th>
+              
+                  <th style="text-align: center;" class="info">Quốc gia</th>
+              
+                  <th style="text-align: center;" class="info">Phone</th>
+               
+                  <th style="text-align: center;" class="info">Email</th>
+
+                  <th style="text-align: center;" class="info">Chi tiết</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let participant of allParticipants">
+              
+                  <td class="participant-properties">{{participant.name}}</td>
+
+                  <td class="participant-properties">{{participant.description}}</td>
+              
+                  <td style="text-align: center;" class="participant-properties">{{participant.orgId}}</td>
+                            
+                  <td style="text-align: center;" class="participant-properties">{{participant.country}}</td>
+              
+                  <td style="text-align: center;" class="participant-properties">{{participant.phone}}</td>
+              
+                  <td style="text-align: center;" class="participant-properties">{{participant.email}}</td>
+
+                  <td style="text-align: center;">
+                    <button (click)="getForm(participant.orgId);" type="button" class="btn btn-update" data-toggle="modal" data-target="#addParticipantModal">
+                        <span>Xem</span>
+                    </button>
+                  </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
