@@ -203,6 +203,7 @@ a:hover{
 	background:url(../images/spr.png) no-repeat center center;
 	overflow:hidden;
 	padding:20px 0px 30px 0px;
+	color:black;
 }
 .scrolldown {
 	padding-top: 24px;
@@ -300,9 +301,10 @@ a:hover{
 /* Banner section */
 
 .banner{
-	background:url(../images/bannerbg1.jpg) no-repeat;
+	background:url(../images/footerbg3.jpg) no-repeat;
 	position:relative;
-	background-size:contain;
+	background-size:cover;
+	background-position: center bottom;
 }
 
 .main_banner_area{
@@ -312,7 +314,7 @@ a:hover{
 
 .single_banner_text p{
 	font-size:60px;
-	color:#3c3c3c;
+	color:black;
 }
 
 
@@ -321,6 +323,7 @@ a:hover{
 /* features section */
 .features{
 	background:#f3c30f;
+	padding:30px 0px 0px 0px !important;
 }
 
 .sinle_features{
@@ -329,6 +332,8 @@ a:hover{
 
 .sinle_features img{
 	margin-bottom:25px;
+	max-width: 100px;
+    max-height: 100px;
 }
 .sinle_features h5{
 	margin-bottom:20px;
@@ -342,61 +347,17 @@ a:hover{
 	font-size:16px;
 }
 
-/* Special Section */
-.special{}
-
-.main_special{
-    padding-bottom: 100px;
-    overflow: hidden;	
-}
-
-.single_special{
-	padding:0;
-	
-}
-.single_special_img{
-	position:relative;
-}
-.single_special_img:hover .single_special_overlay{
-	opacity:1;
-}
-
-.single_special_overlay{
-	background:rgba(221, 221, 221, 0.8);
-	padding:20px 10px;
-	position:absolute;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
-	transition:.6s;
-	opacity:0;
-}
-.overlay_separetor {
-    border-bottom: 2px solid #666;
-    padding-bottom: 10px;
-    width: 50%;
-    margin: 0 auto;
-}
-.single_special_overlay h3{
-	color:#666;
-	font-size:18px;
-}
-.single_special_overlay p{
-	color:#666;
-	font-size:16px;
-	font-weight:300;
-	margin-top:20px;
-}
-
-
 /* Abouts Section */
 .head_title{
 	padding-bottom:50px;
 }
+
+.head_title h2 {
+	color:black;
+}
 .abouts{
 	/* background:#ddd; */
-	background: url('../images/footerbg3.jpg') no-repeat center bottom;
+	background: url('../images/infobg.jpg') no-repeat center bottom;
 	background-size: cover;
 	/* background-repeat: no-repeat; */
 	/* background-position-y: bottom; */
@@ -407,6 +368,11 @@ a:hover{
 	font-weight:300;
 	text-align:center;
 	font-family: 'Merriweather', serif;
+}
+
+.single_abouts img {
+	max-width: 250px;
+	max-height: 250px;
 }
 
 .info-table {
@@ -427,6 +393,10 @@ a:hover{
 	padding-top: 20px;
 }
 
+.unit-description {
+	text-align: left !important;
+}
+
 .val-info {
 	border-left: 2px solid black;
 	text-align: center;
@@ -439,45 +409,6 @@ a:hover{
 	border: none;
 }
 
-/* Menus Section */
-.main_menus{
-	overflow:hidden;
-}
-.menus_top_menu{
-	margin-bottom:50px;
-}
-.menus_top_menu li{
-	display:inline-block;
-}
-.menus_top_menu a{
-	border:1px solid transparent;
-	color:#3c3c3c;
-	padding:5px 10px;
-	display:block;
-	transition:.6s;
-}
-.menus_top_menu a:hover{
-	border:1px solid #b1b1b1;
-	color:#000;
-	padding:5px 10px;
-	display:block;	
-}
-
-.single_menus{
-	padding-bottom:60px;
-}
-.single_menus ul li{
-	margin-bottom: 35px;
-	font-size:18px;
-	font-weight:300;
-}
-.single_menus ul li span{
-	font-size:14px;
-	font-style:italic;
-	font-weight:300;
-	display:block;
-}
-
 
 /* Contact Section */
 
@@ -487,12 +418,20 @@ a:hover{
 .single_contact{
     margin-bottom: 80px;
 	margin-left:10px;
+	color:black;
+	display: block;
+	width: 100%;
 }
 .single_contact h5{
 	margin-bottom:10px;
+	color:black;
 }
 .single_contact span{
 	display:block;
+	color:black;
+	padding-top: 10px;
+	font-size: 18px;
+
 }
 
 .contact_form_area{}
@@ -511,7 +450,7 @@ a:hover{
 
 /* footer section */
 .footer{
-	background:url(../images/infobg.jpg) no-repeat center top;
+	background:url(../images/bannerbg1.jpg) no-repeat center top;
 	background-size:cover;
 	padding-top:80px;
 }
@@ -521,14 +460,15 @@ a:hover{
     padding: 40px 0px 20px 0px;
     overflow: hidden;
     width: 100%;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid black;
     margin-top: 60px;
 }
 .single_footer p{
 	padding:5px;
+	color: #000;
 }
 .single_footer p i{
-	color:#ff0000;
+	color:black;
 	padding:0px 10px;
 }
 .single_footer p a {
@@ -543,7 +483,7 @@ a:hover{
 	width:30px;
 	height:30px;
 	display:inline-block;
-	color:#666;
+	color:black;
 	line-height:20px;
 	text-align:center;
 }
